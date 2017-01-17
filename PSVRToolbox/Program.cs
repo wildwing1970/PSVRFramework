@@ -26,20 +26,17 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace PSVRToolbox
 {
     static class Program
     {
-        static Mutex mutex = new Mutex(true, "PSVRToolbox");
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-
             if (args != null && args.Length > 0)
             {
                 RemoteCommand cmd = null;
@@ -158,14 +155,11 @@ namespace PSVRToolbox
                 return;
             }
 
-            if (mutex.WaitOne(TimeSpan.Zero, true))
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
-                mutex.ReleaseMutex();
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
+
     }
+    
 }
